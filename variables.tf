@@ -1,6 +1,6 @@
 variable "rad_security_app_id" {
   type        = string
-  default     = "4ba48a95-c5da-41d1-897a-57bdf7e34e5b"
+  default     = "55bd48fb-0aea-469d-b464-b5aa1490941d"
   description = "The ID of the Rad Security Azure application."
 }
 
