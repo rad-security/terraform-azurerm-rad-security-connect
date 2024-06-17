@@ -84,7 +84,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_rad_security_app_id"></a> [rad\_security\_app\_id](#input\_rad\_security\_app\_id) | The ID of the Rad Security Azure application. | `string` | `"4ba48a95-c5da-41d1-897a-57bdf7e34e5b"` | no |
+| <a name="input_rad_security_app_id"></a> [rad\_security\_app\_id](#input\_rad\_security\_app\_id) | The ID of the Rad Security Azure application. | `string` | `"55bd48fb-0aea-469d-b464-b5aa1490941d"` | no |
 | <a name="input_rad_security_role_name"></a> [rad\_security\_role\_name](#input\_rad\_security\_role\_name) | Name of custom role to assume | `string` | `"rad-security-connect"` | no |
 
 ## Outputs
