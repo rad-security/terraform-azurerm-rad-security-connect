@@ -19,7 +19,9 @@ resource "azuread_service_principal" "rad_security" {
 }
 
 resource "rad-security_azure_register" "this" {
-  subscription_id = split("/", data.azurerm_subscription.primary.id)[2]
+  for_each = local.subscriptions
+
+  subscription_id = split("/", each.value)[2]
   tenant_id       = data.azurerm_subscription.primary.tenant_id
 
   depends_on = [
