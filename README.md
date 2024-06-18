@@ -84,6 +84,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_azure_subscriptions"></a> [azure\_subscriptions](#input\_azure\_subscriptions) | List of Azure subscriptions to connect to Rad Security. Subscriptions must be passed in the form /subscriptions/$SUBSCIRPTION\_ID | `list(string)` | `[]` | no |
 | <a name="input_rad_security_app_id"></a> [rad\_security\_app\_id](#input\_rad\_security\_app\_id) | The ID of the Rad Security Azure application. | `string` | `"55bd48fb-0aea-469d-b464-b5aa1490941d"` | no |
 | <a name="input_rad_security_role_name"></a> [rad\_security\_role\_name](#input\_rad\_security\_role\_name) | Name of custom role to assume | `string` | `"rad-security-connect"` | no |
 
