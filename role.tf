@@ -20,5 +20,5 @@ resource "azurerm_role_assignment" "rad_security" {
 
   scope              = local.subscriptions_list[count.index]
   role_definition_id = azurerm_role_definition.rad_security.role_definition_resource_id
-  principal_id       = azuread_service_principal.rad_security.object_id
+  principal_id       = var.azure_service_principal_id == "" ? azuread_service_principal.rad_security[0].object_id : var.azure_service_principal_id
 }
