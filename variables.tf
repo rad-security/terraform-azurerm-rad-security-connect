@@ -15,3 +15,9 @@ variable "azure_subscriptions" {
   default     = []
   description = "List of Azure subscriptions to connect to Rad Security. Subscriptions must be passed in the form /subscriptions/$SUBSCIRPTION_ID"
 }
+
+variable "azure_service_principal_id" {
+  type        = string
+  default     = ""
+  description = "If the Service Principal is already created, specify the id here"
+}
