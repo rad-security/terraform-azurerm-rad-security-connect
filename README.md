@@ -20,16 +20,13 @@ During the sign-up process, you will need to execute this module to allow KSOC t
 
 Use the following to configure the Azure Terraform provider:
 
-```terraform
+```hcl
 provider "azuread" {
-  tenant_id = "YOUR_AZURE_TENANT_ID"
+
 }
 
 provider "azurerm" {
-  features {}
-  client_id       = "YOUR_AZURE_CLIENT_ID"
-  subscription_id = "YOUR_AZURE_SUBSCRIPTION_ID"
-  tenant_id       = "YOUR_AZURE_TENANT_ID"
+
 }
 
 provider "rad-security" {
@@ -38,7 +35,7 @@ provider "rad-security" {
 }
 ```
 
-``` terraform
+```hcl
 module "rad-security-connect" {
   source  = "rad-security/rad-security-connect/azurerm"
   version = "<version>"
@@ -46,6 +43,18 @@ module "rad-security-connect" {
 ```
 
 Once applied, Rad Security will start synchronizing your resources with our platform.
+
+## Providing a Service Principal
+
+If you already have a Service Principal that you want to use, you can provide the `azure_service_principal_id` input variable.
+
+```hcl
+module "rad-security-connect" {
+  source  = "rad-security/rad-security-connect/azurerm"
+  version = "<version>"
+  azure_service_principal_id = "YOUR_SERVICE_PRINCIPAL_ID"
+}
+```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
