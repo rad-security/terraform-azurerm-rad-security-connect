@@ -39,7 +39,7 @@ Once applied, Rad Security will start synchronizing your resources with our plat
 
 ## Using an Existing Service Principal
 
-It is possible to use an existing Service Principal that has the necessary permissions. To do this, you can register the Azure Subscription and Tenant by creating a `azure_register` resource with the rad-security provider. There is no need to use this module. The Service Principal ID and Secret will be securely stored in the RAD Security platform. A new resource has to be created for each Azure Subscription and Tenant you wish to connect to RAD Security.
+If you wish to use an existing Service Principal that has the necessary permissions in your Azure Subscriptions, you can register it with RAD Security by passing the id and secret to a `rad-security_azure_register` resource.
 
 ```hcl
 provider "rad-security" {
