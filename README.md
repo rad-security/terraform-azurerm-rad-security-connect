@@ -1,24 +1,17 @@
 # terraform-azurerm-rad-security
 
-Allows Rad Security to connect to your Azure accounts to allow for AKS cluster discovery.
+Allows RAD Security to connect to your Azure accounts to allow for AKS Cluster Discovery, and Cloud Resource Discovery. The terraform module will create a custom role, service principal, app role assignment, and will assign the custom role to the service principal in each subscription. Once the role is assigned in the subscription, the azure_register resource will then register the subscription and tenant with RAD Security. The module is configured to use an Azure Enterprise Application to avoid storing credentials within RAD. There is a workaround to use Service Principal ids and secrets if that method is preferred.
 
 ## Terraform Registry
 
 This module is available in the [Terraform Registry](https://registry.terraform.io/) see [here](https://registry.terraform.io/modules/rad-security/rad-security-connect/azurerm/latest).
 
-## Contributing
-
-The most important thing to be aware of when contributing is that we leverage the [Semantic Release Action](https://github.com/cycjimmy/semantic-release-action) to automate our changelog, see [here](CHANGELOG.md).
-
-This requires us to use [conventional git commits](https://www.conventionalcommits.org/en/v1.0.0/) when committing to this repository.
-
-Each PR merge into the `main` branch will execute the release process defined [here](.github/workflows/release.yml).
 
 ## Usage
 
-During the sign-up process, you will need to execute this module to allow KSOC to discovery AKS clusters and perform monitoring.
+To register your Azure accounts with RAD Security, you will need to execute this module.
 
-Use the following to configure the Azure Terraform provider:
+The following providers need to be configured. There are a number of ways to configure the azurerm and azuread providers. Select the one that best fits your environment. The rad-security provider needs a pair of access and secret keys to function correctly.
 
 ```hcl
 provider "azuread" {
@@ -30,8 +23,8 @@ provider "azurerm" {
 }
 
 provider "rad-security" {
-    access_key_id = "KSOC_ACCESS_KEY"
-    secret_key    = "KSOC_SECRET_KEY"
+    access_key_id = "RAD_ACCESS_KEY"
+    secret_key    = "RAD_SECRET_KEY"
 }
 ```
 
@@ -44,15 +37,33 @@ module "rad-security-connect" {
 
 Once applied, Rad Security will start synchronizing your resources with our platform.
 
-## Providing a Service Principal
+## Using an Existing Service Principal
 
-If you already have a Service Principal that you want to use, you can provide the `azure_service_principal_id` input variable.
+If you wish to use an existing Service Principal that has the necessary permissions in your Azure Subscriptions, you can register it with RAD Security by passing the id and secret to a `rad-security_azure_register` resource instead of using the module.
+
+```hcl
+provider "rad-security" {
+    access_key_id = "RAD_ACCESS_KEY"
+    secret_key    = "RAD_SECRET_KEY"
+}
+
+resource "rad-security_azure_register" "azure_connection" {
+  subscription_id                = "your-azure-subscription-id"
+  tenant_id                      = "your-azure-tenant-id"
+  service_principal_token_id     = "your-service-principal-token-id"
+  service_principal_token_secret = "your-service-principal-token-secret"
+}
+```
+
+## Registering Multiple Azure Subscriptions
+
+You can register multiple Azure Subscriptions by passing them into the `azure_subscriptions` input variable. They have to be in the format `/subscriptions/$SUBSCRIPTION_ID`. This will assign the custom role to the Service Principal in each subscription.
 
 ```hcl
 module "rad-security-connect" {
   source  = "rad-security/rad-security-connect/azurerm"
   version = "<version>"
-  azure_service_principal_id = "YOUR_SERVICE_PRINCIPAL_ID"
+  azure_subscriptions = ["/subscriptions/1234567890", "/subscriptions/1234567891"]
 }
 ```
 
